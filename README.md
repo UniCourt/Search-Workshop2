@@ -1,10 +1,12 @@
 # Elasticsearch Workshop
 
-One Day workshop on understanding Elasticsearch
+Elasticsearch basic training is being provided here. Elasticsearch is a Java-based Apache 
+Lucene-based distributed, open-source search and analytics engine. An extension of 
+Search-Workshop1, this elasticsearch workshop.
 
 ## Prerequisite
 
-##### Any Linux machine with following packages installed
+##### Any Linux machine(ubuntu is preferred) with following packages installed
 - git
 - python3.10
 - Docker

@@ -6,27 +6,27 @@ Creating a simple index with text, keywords, nested type fields.
 ```
 PUT my-index-nested
 {
-  "mappings": {
-    "properties": {
-      "courseId": {
-        "type": "keyword"
-      },
-      "courseName": {
+   "mappings":{
+      "properties":{
+         "courseId":{
+            "type":"keyword"
+         },
+         "courseName":{
             "type":"text"
-          },
-      "Subject": {
-        "type": "nested",
-        "properties": {
-          "subjectId": {
-            "type": "keyword"
-          },
-          "subjectName": {
-            "type": "text"
-          }
-        }
+         },
+         "Subject":{
+            "type":"nested",
+            "properties":{
+               "subjectId":{
+                  "type":"keyword"
+               },
+               "subjectName":{
+                  "type":"text"
+               }
+            }
+         }
       }
-    }
-  }
+   }
 }
 ```
 In the above example, Subject is a nested type field and it has two properties, subjectName and subjectId
@@ -111,9 +111,15 @@ The above user field is dynamically added as a field of type object. \
 The previous document would be transformed internally into a document that looks more like this:
 ```
 {
-  "group" :        "fans",
-  "user.first" : [ "alice", "john" ],
-  "user.last" :  [ "smith", "white" ]
+   "group":"fans",
+   "user.first":[
+      "alice",
+      "john"
+   ],
+   "user.last":[
+      "smith",
+      "white"
+   ]
 }
 ```
 
@@ -122,14 +128,22 @@ The user.first and user.last fields are flattened into multi-value fields, and t
 ```
 GET my-object-index/_search
 {
-  "query": {
-    "bool": {
-      "must": [
-        { "match": { "user.first": "Alice" }},
-        { "match": { "user.last":  "Smith" }}
-      ]
-    }
-  }
+   "query":{
+      "bool":{
+         "must":[
+            {
+               "match":{
+                  "user.first":"Alice"
+               }
+            },
+            {
+               "match":{
+                  "user.last":"Smith"
+               }
+            }
+         ]
+      }
+   }
 }
 ```
 
@@ -167,19 +181,27 @@ PUT nested-object-index/_doc/1
 ```
 GET nested-object-index/_search
 {
-  "query": {
-    "nested": {
-      "path": "user",
-      "query": {
-        "bool": {
-          "must": [
-            { "match": { "user.first": "Alice" }},
-            { "match": { "user.last":  "Smith" }} 
-          ]
-        }
+   "query":{
+      "nested":{
+         "path":"user",
+         "query":{
+            "bool":{
+               "must":[
+                  {
+                     "match":{
+                        "user.first":"Alice"
+                     }
+                  },
+                  {
+                     "match":{
+                        "user.last":"Smith"
+                     }
+                  }
+               ]
+            }
+         }
       }
-    }
-  }
+   }
 }
 ```
 For the above query, we won't get any results since none of the user object have first value as 
@@ -187,26 +209,36 @@ _Alice_ and last as _Smith_
 ```
 GET nested-object-index/_search
 {
-  "query": {
-    "nested": {
-      "path": "user",
-      "query": {
-        "bool": {
-          "must": [
-            { "match": { "user.first": "Alice" }},
-            { "match": { "user.last":  "White" }} 
-          ]
-        }
-      },
-      "inner_hits": { 
-        "highlight": {
-          "fields": {
-            "user.first": {}
-          }
-        }
+   "query":{
+      "nested":{
+         "path":"user",
+         "query":{
+            "bool":{
+               "must":[
+                  {
+                     "match":{
+                        "user.first":"Alice"
+                     }
+                  },
+                  {
+                     "match":{
+                        "user.last":"White"
+                     }
+                  }
+               ]
+            }
+         },
+         "inner_hits":{
+            "highlight":{
+               "fields":{
+                  "user.first":{
+                     
+                  }
+               }
+            }
+         }
       }
-    }
-  }
+   }
 }
 ```
 For the above query you will get matched document, since there is an user object in which 

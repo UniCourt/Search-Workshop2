@@ -24,7 +24,7 @@ stores and indexes the `firstname` and `lastname` fields.
 The new document is available immediately to search. 
 You can retrieve it with a GET request that specifies its document ID: `GET /customer/_doc/1`
 ----
-**Load a Single Document Into ES** 
+**Load documents to ES in bulk** 
 
 To add multiple documents in one request, use the `_bulk` API.
 Bulk data must be newline-delimited JSON (NDJSON). 
