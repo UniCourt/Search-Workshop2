@@ -4,7 +4,9 @@
 An example to create a simple index with dynamic mapping:
 ```
 PUT data/_doc/1 
-{ "name": "john smith" }
+{
+   "name":"john smith"
+}
 ```
 - Creates the *data* index, the *_doc* mapping type, and a field called *count* with data 
   type *long*.

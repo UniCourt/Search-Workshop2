@@ -2,6 +2,10 @@
 We will be reading data from Postgres and loading it to Elasticsearch using a script.
 
 
+#### First make sure that Elasticsearch and Kibana is up and running.
+Go to any browser, in search bar and enter 127.0.0.1:9200 to check elasticsearch service, enter 
+127.0.0.1:5601 to check kibana service.
+
 ### Load schema to ES
 In Kibana, go to Dev Tools page, paste the below command and run. 
 ```
